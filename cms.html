@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>GH-CMS</title>
+    <meta name="theme-color" content="#2f2f31" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,900,700,600,300,200' rel='stylesheet' type='text/css'>
+    <style>
+
+        body{
+            padding: 40px;
+        }
+        textarea{
+            min-height: 200px;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        #login,
+        .lang-container{
+            border: 1px solid #ccc;
+            background: #f5f5f5;
+            margin: 50px 0;
+            padding: 20px;
+        }
+
+
+        .content{
+            height: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #results .form-group{
+            padding: 0 60px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+
+                <div class="alert hidden" role="alert"></div>
+                <form id="login">
+                    <h1>Log in</h1>
+                    <div class="form-group">
+                        <label for="owner">Github Username</label>
+                        <input type="text" class="form-control" value="" id="owner" placeholder="Github Username">
+                    </div>
+                    <div class="form-group">
+                        <label for="passwrd">Github Token</label>
+                        <input type="password" value="" class="form-control" id="passwrd" placeholder="Password">
+                    </div>
+                    <hr />
+                    <div class="form-group">
+                        <label for="owner">Github Repo Name</label>
+                        <input type="text" class="form-control" id="repo" value="" placeholder="Github Repo Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="owner">Path to JSON Path</label>
+                        <input type="text" class="form-control" id="path" value="" placeholder="JSON Path">
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="ghsubmitbtn">Submit</button>
+                </form>
+
+                <div class="results-wrapper">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <form id="results">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+<script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src="https://unpkg.com/github-api/dist/GitHub.bundle.min.js"></script>
+<script src="assets/javascript/GithubApiPush.js"></script>
+<script src="assets/javascript/cms.js"></script>
+</script>
+
+</body>
+</html>
