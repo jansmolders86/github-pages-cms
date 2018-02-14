@@ -179,3 +179,4 @@ function AddToTree(obj, keys, def) {
     for (var i = 0, length = keys.length; i < length; ++i)
         obj = obj[keys[i]] = i == length - 1 ? def : obj[keys[i]] || {};
 };
+

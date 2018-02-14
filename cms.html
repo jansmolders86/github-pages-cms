@@ -11,9 +11,6 @@
           type='text/css'>
     <style>
 
-        body{
-            padding: 40px;
-        }
         textarea{
             min-height: 200px;
         }
@@ -22,17 +19,33 @@
             list-style: none;
         }
 
+        h1{
+            font-size: 1.5em;
+        }
+
+        h2{
+            font-size: 1.2em;
+        }
+
+        h3,h4,h5{
+            text-transform: capitalize;
+            font-size: 1em;
+        }
+
         #login,
         .section{
-            border: 1px solid #ccc;
+            border: 1px solid #e0e0e1;
             background: #f5f5f5;
             margin: 50px 0;
             padding: 20px;
+            border-radius: 5px;
         }
 
         .lang-container{
-            border: 1px solid #ccc;
+            border: 1px solid #e0e0e1;
             padding: 20px;
+            border-radius: 5px;
+            margin: 50px 0;
         }
         .section:empty{
             display: none;
@@ -46,7 +59,7 @@
 
         .lang-content-wrapper,
         .page-wrapper{
-            height: 90px;
+            height: 100px;
             position: relative;
             overflow: hidden;
         }
@@ -58,18 +71,19 @@
             cursor: pointer;
             background: #f5f5f5;
             position: relative;
+            border: 1px solid #e0e0e1;
         }
         .lang-content-wrapper > h2:after,
         .page-wrapper > h3:after{
             position: absolute;
             right: 40px;
-            top: 35px;
+            top: 30px;
             content: '';
             width: 0;
             height: 0;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-top: 10px solid #000;
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-top: 7px solid #000;
         }
 
         .lang-content-wrapper.open > h2:after,
@@ -85,7 +99,20 @@
         #results .btn{
             position: fixed;
             right: 100px;
-            top: 50px;
+            top: 0;
+            z-index: 2;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            background-color: #28a745;
+            background-image: linear-gradient(-180deg, #34d058 0%, #28a745 90%);
+            border: 1px solid rgba(27,31,35,0.2);
+        }
+
+        #results .btn:hover{
+            background-color: #269f42;
+            background-image: linear-gradient(-180deg, #2fcb53 0%, #269f42 90%);
+            background-position: -.5em;
+            border-color: rgba(27,31,35,0.5);
         }
 
         h4{
@@ -99,6 +126,24 @@
             position: absolute;
             left: -17px;
             top: 0;
+        }
+
+        .header {
+            z-index: 1;
+            padding-top: 12px;
+            padding-bottom: 12px;
+            color: rgba(255,255,255,0.75);
+            background-color: #24292e;
+            height: 80px;
+            position: relative;
+        }
+
+        .header span{
+            font-size: 1.5em;
+            position: absolute;
+            top: 15px;
+            left: 20%;
+            color: rgba(255,255,255,0.75);
         }
     </style>
 </head>
