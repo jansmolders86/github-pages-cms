@@ -47,7 +47,7 @@ The content is provide using a simple JSON like you see below.
 ```
 
 On the client side you can retrieve the data and assign it to elements using data attributes for example. 
-This is just an exmaple, you can use whatever you like. 
+This is just an example, you can use whatever you like. 
 
 ``` JS
     var url = './assets/json/content.json';
