@@ -59,7 +59,7 @@ This is just an example, you can use whatever you like.
 ```
 
 The "CMS" grabs the JSON, renders the contents in Input fields and Textarea's. 
-If a field requires a Textarea, use "description", "text", "textarea" as it's key.
+If a field requires a textarea, use "description", "text", "textarea" as its key.
 
 The CMS Login requires you to use a github token instead of a password to add some security.
 
@@ -77,6 +77,7 @@ The CMS Frontend is rendered on the fly and saving the content is immediate, ref
 TODO's
 -------------
 * Get Array's to work
+* Add WYSIWYG editor to textarea's
 * Add security and store token securly 
 * Clean up the code (kinda hacky now) 
 * Expand functionality (upload images, versioning, etc)
