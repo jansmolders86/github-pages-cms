@@ -5,6 +5,7 @@
         "header": {
           "content": {
             "title": "Header Title"
+            "description": "This will be rendered in a textarea due to the key"
           }
         },
         "content": {
