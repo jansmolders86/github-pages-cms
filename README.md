@@ -61,7 +61,7 @@ This is just an example, you can use whatever you like.
 The "CMS" grabs the JSON, renders the contents in Input fields and Textarea's. 
 If a field requires a textarea, use "description", "text", "textarea" as its key.
 
-The CMS Login requires you to use a github token instead of a password to add some security.
+ **The CMS Login requires you to use a github token instead of a password to add some security. **
 
 You can use whatever prop names you want but currently Array's aren't working yet. so you can do:
 
