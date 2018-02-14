@@ -1,40 +1,45 @@
 var sha;
-var owner =  $('#owner').val();
-var passwrd =  $('#passwrd').val();
-var repo =  $('#repo').val();
+var owner = $('#owner').val();
+var token = $('#ghToken').val();
+var repo = $('#repo').val();
 var path = $('#path').val();
 var alert = $('.alert');
-var buttonText = "Save";
+var buttonText = "Save Changes";
+var hasClicked = false;
+var didSubmit = false;
 
 $(function(){
     $('#ghsubmitbtn').on('click', function(e){
         e.preventDefault();
 
-        $.ajax({
-            url: "https://api.github.com/repos/"+owner+"/"+repo+"/contents/"+path,
-            beforeSend: function(xhr) {
-                xhr.setRequestHeader("Authorization", "user" + btoa(owner+":"+passwrd));
-            },
-            type: 'GET',
-            dataType: 'json',
-            contentType: 'application/json',
-            success: function (data) {
-                var jsonFile = data.content;
-                sha = data.sha;
-                var decodedJson = atob(jsonFile);
-                var parsedDecodedJson = JSON.parse(decodedJson);
+        if(!hasClicked){
+            $.ajax({
+                url: "https://api.github.com/repos/"+owner+"/"+repo+"/contents/"+path,
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader("Authorization", "user" + btoa("token:"+token));
+                },
+                type: 'GET',
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    var jsonFile = data.content;
+                    sha = data.sha;
+                    var decodedJson = atob(jsonFile);
+                    var parsedDecodedJson = JSON.parse(decodedJson);
 
-                if(parsedDecodedJson){
-                    $('#login').hide();
-                    alert.addClass('hidden');
-                    parseData(parsedDecodedJson);
+                    if(parsedDecodedJson){
+                        $('#login').hide();
+                        alert.addClass('hidden');
+                        parseData(parsedDecodedJson);
+                    }
+
+                },
+                error: function(error){
+                    alert.addClass('alert-danger').removeClass('hidden').html('Something went wrong:'+error.responseText);
                 }
-
-            },
-            error: function(error){
-                alert.addClass('alert-danger').removeClass('hidden').html('Something went wrong:'+error.responseText);
-            }
-        });
+            });
+            hasClicked = true;
+        }
     });
 });
 
@@ -51,11 +56,15 @@ function parseData(item){
                 if (index === landKey) {
                     resultEl.append('<div class="lang-container lang' + langCount + '"></div>');
                     var langContainer = $(".lang" + langCount);
-                    langContainer.append('<h2>'+landKey.toUpperCase() + '</h2>');
+                    langContainer.append('<div class="lang-content-wrapper"></div>');
+                    var contentWrapper = $('.lang-content-wrapper');
+                    contentWrapper.append('<h2>'+landKey.toUpperCase() + '</h2>');
                     var pages = locales.pages;
                     if (pages) {
                         var page = Object.keys(pages);
-                        langContainer.append('<h2>' + page + '</h2>');
+                        contentWrapper.append('<div class="page-wrapper"></div>');
+                        var pageWrapper = $('.page-wrapper');
+                        pageWrapper.append('<h3>' + page + '</h3>');
                         $.each(pages, function (index, pageData) {
                             var sections = Object.keys(pageData);
                             for (var j = 0; j < sections.length; j++) {
@@ -63,14 +72,14 @@ function parseData(item){
                                 prefix = landKey + '.pages.' + page + '.' + section;
                                 $.each(pageData, function (index, sectionData) {
                                     if (index === section) {
-                                        langContainer.append('<h3>' + section.toUpperCase() + '</h3>');
+                                        pageWrapper.append('<h4>' + section.toUpperCase() + '</h4>');
                                         var sectionHeaders = Object.keys(sectionData);
                                         for (var k = 0; k < sectionHeaders.length; k++) {
                                             var subSectionHeader = sectionHeaders[k];
-                                            langContainer.append('<h4>' + sectionHeaders[k].toUpperCase() + '</h4>');
+                                            pageWrapper.append('<h4>' + sectionHeaders[k].toUpperCase() + '</h4>');
                                             $.each(sectionData, function (index, data) {
                                                 if (index === sectionHeaders[k]) {
-                                                    traverseDownTree(langContainer, prefix+'.'+subSectionHeader, index, data);
+                                                    traverseDownTree(pageWrapper, prefix+'.'+subSectionHeader, index, data);
                                                 }
                                             });
                                         }
@@ -87,38 +96,51 @@ function parseData(item){
     }
 
 
+    $('.lang-content-wrapper > h2').on('click', function(){
+        $(this).parent().toggleClass('open');
+    });
+    $('.page-wrapper > h3').on('click', function(){
+        $(this).parent().toggleClass('open');
+    });
+
     resultEl.submit( function( e ) {
         e.preventDefault();
-        var obj = $(this).serializeObject();
-        var api = new GithubAPI({token: passwrd});
-        var blob = JSON.stringify(obj, null, 2);
+        if(!didSubmit){
+            var token = $('#ghToken').val();
+            var obj = $(this).serializeObject();
+            var api = new GithubAPI({token: token});
+            var JsonData = JSON.stringify(obj, null, 4);
 
-        api.setRepo(owner, repo);
-        api.setBranch('gh-pages');
-        setTimeout(function () {
-            api.pushFiles(
-                'CMS Update',
-                [
-                    {content: blob, path: path}
-                ]
-            );
+            api.setRepo(owner, repo);
+            api.setBranch('gh-pages');
+            setTimeout(function () {
+                api.pushFiles(
+                    'CMS Update',
+                    [
+                        {content: JsonData, path: path}
+                    ]
+                );
+            }, 2000);
 
-            $(this).hide();
-        }, 2000)
+            didSubmit = true;
 
+        }
     });
 
 }
 
 function traverseDownTree(container, prefix, index, data){
+    var uniqueID = Math.floor(Math.random() * 1000000000);
+    container.append('<div class="section" id="'+uniqueID+'"></div>');
+    var wrapper = $('#'+uniqueID);
     if(typeof data === 'string') {
-        createFields(container, prefix, index, data);
+        wrapper.append('<h4>' + index.toUpperCase() + '</h4>');
+        createFields(wrapper, prefix, index, data);
     } else if(typeof data === 'object'){
         $.each(data, function (index, data) {
             if(typeof data === 'string') {
-                createFields(container, prefix, index, data);
+                createFields(wrapper, prefix, index, data);
             } else {
-                container.append('<h4>' + index.toUpperCase() + '</h4>');
                 traverseDownTree(container, prefix+'.'+index, index, data);
             }
         });
@@ -142,11 +164,12 @@ function createFields(container, rootpath, index, item) {
 
 $.fn.serializeObject = function() {
     var o = {}; // final object
-    var a = this.serializeArray(); 
+    var a = this.serializeArray(); // retrieves an array of all form values as
 
     $.each(a, function() {
-        var ns = this.name.split("."); 
-        AddToTree(o, ns, this.value); 
+        var ns = this.name.split("."); // split name to get namespace
+        AddToTree(o, ns, this.value); // creates a tree structure
+                                      // with values in the namespace
     });
 
     return o;
@@ -156,4 +179,3 @@ function AddToTree(obj, keys, def) {
     for (var i = 0, length = keys.length; i < length; ++i)
         obj = obj[keys[i]] = i == length - 1 ? def : obj[keys[i]] || {};
 };
-
