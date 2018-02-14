@@ -73,6 +73,12 @@ You can use whatever prop names you want but currently Array's aren't working ye
 
 The CMS Frontend is rendered on the fly and saving the content is immediate, refresh the page requires a login again. 
 
+Cool, Cool, but what about SEO?
+-------------
+
+The complexity of this "system" if simple enough for the crawlers to "see" the content according to:
+https://searchengineland.com/tested-googlebot-crawls-javascript-heres-learned-220157
+
 
 TODO's
 -------------
