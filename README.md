@@ -3,7 +3,7 @@ Github Pages CMS
 
 __A Simple content CMS on Github Pages, for Github Pages__ 
 
-[![CMS](assets/exmaple/cms.gif)
+[![CMS](/assets/exmaple/cms.gif)
 
 What is this?
 =========================
