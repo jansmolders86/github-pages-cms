@@ -1,9 +1,9 @@
 Github Pages CMS
 =============
 
-__A Simple content CMS on Github Pages, for Github Pages__ 
+__A Simple content CMS on Github Pages, for Github Pages.__ 
 
-[![CMS](https://raw.githubusercontent.com/jansmolders86/gh-cms/master/example/cms.gif)
+![CMS](https://raw.githubusercontent.com/jansmolders86/gh-cms/master/example/cms.gif)
 
 What is this?
 =========================
