@@ -1,4 +1,3 @@
-var sha;
 var owner = $('#owner').val();
 var token = $('#ghToken').val();
 var repo = $('#repo').val();
@@ -23,7 +22,6 @@ $(function(){
                 contentType: 'application/json',
                 success: function (data) {
                     var jsonFile = data.content;
-                    sha = data.sha;
                     var decodedJson = atob(jsonFile);
                     var parsedDecodedJson = JSON.parse(decodedJson);
 
