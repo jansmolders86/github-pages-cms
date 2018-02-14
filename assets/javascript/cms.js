@@ -86,7 +86,7 @@ function parseData(item){
                                     }
                                 });
                             }
-                            resultEl.append('<button class="btn btn-lg btn-primary" type="submit">'+buttonText+'</button>');
+                            resultEl.append('<button class="btn btn-lg btn-primary submit-btn" type="submit">'+buttonText+'</button>');
                         });
                     }
                 }
@@ -106,6 +106,7 @@ function parseData(item){
     resultEl.submit( function( e ) {
         e.preventDefault();
         if(!didSubmit){
+            $('.submit-btn').addClass('disabled');
             var token = $('#ghToken').val();
             var obj = $(this).serializeObject();
             var api = new GithubAPI({token: token});
@@ -125,6 +126,10 @@ function parseData(item){
             didSubmit = true;
 
         }
+
+        setTimeout(function () {
+            $('.submit-btn').removeClass('disabled');
+        },4000);
     });
 
 }
@@ -163,13 +168,12 @@ function createFields(container, rootpath, index, item) {
 }
 
 $.fn.serializeObject = function() {
-    var o = {}; // final object
-    var a = this.serializeArray(); // retrieves an array of all form values as
+    var o = {};
+    var a = this.serializeArray();
 
     $.each(a, function() {
-        var ns = this.name.split("."); // split name to get namespace
-        AddToTree(o, ns, this.value); // creates a tree structure
-                                      // with values in the namespace
+        var ns = this.name.split(".");
+        AddToTree(o, ns, this.value);
     });
 
     return o;
@@ -178,5 +182,5 @@ $.fn.serializeObject = function() {
 function AddToTree(obj, keys, def) {
     for (var i = 0, length = keys.length; i < length; ++i)
         obj = obj[keys[i]] = i == length - 1 ? def : obj[keys[i]] || {};
-};
+}
 

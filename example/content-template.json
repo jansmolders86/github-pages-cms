@@ -1,0 +1,27 @@
+{
+  "en": {
+    "pages": {
+      "homepage": {
+        "header": {
+          "content": {
+            "title": "Header Title"
+          }
+        },
+        "content": {
+          "section": {
+            "title": "This is a section title",
+            "images": {
+              "src": "assets/images/1.png",
+              "alt": "Toshiba"
+            }
+          }
+        },
+        "footer": {
+          "content": {
+            "title": "Footer Title"
+          }
+        }
+      }
+    }
+  }
+}
