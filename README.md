@@ -86,5 +86,5 @@ TODO's
 * Add WYSIWYG editor to textarea's
 * Show errors on frontend
 * Add security and store token securly 
-* Clean up the code (kinda hacky now) 
+* Clean up the code -> Refactor in VueJs
 * Expand functionality (upload images, versioning, etc)
