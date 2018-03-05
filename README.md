@@ -40,7 +40,6 @@ Cool, Cool, but what about SEO?
 The complexity of this "system" if simple enough for the crawlers to "see" the content according to:
 https://searchengineland.com/tested-googlebot-crawls-javascript-heres-learned-220157
 
-
 TODO's
 -------------
 * Add WYSIWYG editor to textarea's
