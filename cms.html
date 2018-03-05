@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>Github Pages CMS</title>
+    <title>Jan Smolders</title>
     <meta name="theme-color" content="#2f2f31" />
-    <meta name="description" content="Github Pages Simple CMS"/>
+    <meta name="description" content="Jan Smolders, a freelance designer and web developer from the Netherlands."/>
+    <meta name="keywords"
+          content="Jan Smolders,Smolders,NodeJS,Design,Freelance,media,html,game developer,javascript,html5,jquery,ffmpeg,Github, ReactJS, AngularJS, photoshop"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sceditor/2.1.2/themes/content/default.min.css">
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,900,700,600,300,200' rel='stylesheet'
           type='text/css'>
     <style>
@@ -30,6 +33,10 @@
         h3,h4,h5{
             text-transform: capitalize;
             font-size: 1em;
+        }
+
+        label{
+            text-transform: capitalize;
         }
 
         #login,
@@ -96,7 +103,7 @@
             transition: all ease .5s;
         }
 
-        #results .btn{
+        #results .submit-btn{
             position: fixed;
             right: 100px;
             top: 0;
@@ -149,6 +156,8 @@
 </head>
 
 <body>
+
+<div class="header"><span>GitHub Pages CMS</span></div>
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
@@ -158,7 +167,7 @@
                 <h1> log in</h1>
                 <div class="form-group">
                     <label for="owner">Github Username</label>
-                    <input type="text" class="form-control" value="" id="owner" placeholder="Github Username">
+                    <input type="text" class="form-control" value="jansmolders86" id="owner" placeholder="Github Username">
                 </div>
                 <div class="form-group">
                     <label for="ghToken">Github Password</label>
@@ -167,11 +176,11 @@
                 <hr />
                 <div class="form-group">
                     <label for="owner">Github Repo Name</label>
-                    <input type="text" class="form-control" id="repo" value="" placeholder="Github Repo Name">
+                    <input type="text" class="form-control" id="repo" value="jansmolders" placeholder="Github Repo Name">
                 </div>
                 <div class="form-group">
                     <label for="owner">Path to JSON Path</label>
-                    <input type="text" class="form-control" id="path" value="assets/json/content.json" placeholder="JSON Path">
+                    <input type="text" class="form-control" id="path" value="expo-mate/assets/json/content.json" placeholder="JSON Path">
                 </div>
                 <button type="submit" class="btn btn-primary" id="ghsubmitbtn">Submit</button>
             </form>
@@ -180,8 +189,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-xs-12">
-                            <form id="results">
-                            </form>
+                            <div id="results"></div>
                         </div>
                     </div>
                 </div>
@@ -192,7 +200,9 @@
 </div>
 
 <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src="//unpkg.com/github-api/dist/GitHub.bundle.min.js"></script>
+<script src="https://unpkg.com/github-api/dist/GitHub.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sceditor/2.1.2/sceditor.min.js"></script>
+<script src="assets/javascript/vendor/jsoneditor.min.js"></script>
 <script src="assets/javascript/GithubApiPush.js"></script>
 <script src="assets/javascript/cms.js"></script>
 </body>

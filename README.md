@@ -13,38 +13,7 @@ Every once in a while I get asked to create a small simple low-budget website. T
 How does this work?
 -------------
 
-The content is provide using a simple JSON like you see below. 
-
-```json
-{
-  "en": {
-    "pages": {
-      "homepage": {
-        "header": {
-          "content": {
-            "title": "Header Title",
-            "description": "Long text rendered in a textarea due to key."
-          }
-        },
-        "content": {
-          "section": {
-            "title": "This is a section title",
-            "images": {
-              "src": "assets/images/1.png",
-              "alt": "Toshiba"
-            }
-          }
-        },
-        "footer": {
-          "content": {
-            "title": "Footer Title"
-          }
-        }
-      }
-    }
-  }
-}
-```
+The content is provide using a simple Schema v4 JSON.
 
 On the client side you can retrieve the data and assign it to elements using data attributes for example. 
 This is just an example, you can use whatever you like. 
@@ -58,18 +27,10 @@ This is just an example, you can use whatever you like.
     });
 ```
 
-The "CMS" grabs the JSON, renders the contents in Input fields and Textarea's. 
-If a field requires a textarea, use "description", "text", "textarea" as its key.
+The "CMS" grabs the JSON, renders the contents using jdorn's, https://github.com/jdorn/json-editor
 
 __The CMS Login requires you to use a github token instead of a password to add some security.__
 
-You can use whatever prop names you want but currently Array's aren't working yet. so you can do:
-
-```json
-    "pages": {
-      "cool-page-title": {
-        "something-unique": {
-```
 
 The CMS Frontend is rendered on the fly and saving the content is immediate, refresh the page requires a login again. 
 
@@ -82,9 +43,7 @@ https://searchengineland.com/tested-googlebot-crawls-javascript-heres-learned-22
 
 TODO's
 -------------
-* Get Array's to work
 * Add WYSIWYG editor to textarea's
 * Show errors on frontend
 * Add security and store token securly 
-* Clean up the code (kinda hacky now) 
 * Expand functionality (upload images, versioning, etc)
