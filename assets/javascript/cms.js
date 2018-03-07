@@ -1,17 +1,19 @@
-var owner = $('#owner').val();
-var token = $('#ghToken').val();
-var repo = $('#repo').val();
-var path = $('#path').val();
-var alert = $('.alert');
-var resultsContainer = $('#results')
-var submitButtonText = "Save Changes";
-var resetButtonText = "Reset Changes";
-var hasClicked = false;
-var didSubmit = false;
 
 $(function(){
     $('#ghsubmitbtn').on('click', function(e){
         e.preventDefault();
+        var sha;
+        var owner = $('#owner').val();
+        var token = $('#ghToken').val();
+        var repo = $('#repo').val();
+        var path = $('#path').val();
+        var branch = $('#branch').val();
+        var alert = $('.alert');
+        var resultsContainer = $('#results');
+        var submitButtonText = "Save Changes";
+        var resetButtonText = "Reset Changes";
+        var hasClicked = false;
+        var didSubmit = false;
 
         if(!hasClicked){
             $.ajax({
@@ -24,9 +26,10 @@ $(function(){
                 contentType: 'application/json',
                 success: function (data) {
                     var jsonFile = data.content;
+                    sha = data.sha;
                     var decodedJson = atob(jsonFile);
                     var parsedDecodedJson = JSON.parse(decodedJson);
-
+                    hasClicked = true;
                     if(parsedDecodedJson){
                         $('#login').hide();
                         alert.addClass('hidden');
@@ -50,28 +53,34 @@ $(function(){
                         $('.submit-btn').on('click', function( e ) {
                             e.preventDefault();
                             if(!didSubmit){
-                                $(this).addClass('disabled');
+                                var owner = $('#owner').val();
                                 var token = $('#ghToken').val();
-                                var api = new GithubAPI({token: token});
-                                var JsonData = editor.getValue();
+                                var repo = $('#repo').val();
+                                var path = $('#path').val();
+                                var branch = $('#branch').val();
+                                var formData = editor.getValue();
+                                var JsonData = JSON.stringify(formData, null, 4);
 
+                                $(this).addClass('disabled');
+
+                                var api = new GithubAPI({ token: token});
                                 api.setRepo(owner, repo);
-                                api.setBranch('gh-pages');
-                                setTimeout(function () {
-                                    api.pushFiles(
+                                api.setBranch(branch).then(function () {
+                                    return api.pushFiles(
                                         'CMS Update',
                                         [
-                                            {content: JsonData, path: path}
+                                            {
+                                                content: JsonData,
+                                                path: path
+                                            }
                                         ]
                                     );
-                                }, 2000);
-                                didSubmit = true;
-
+                                }).then(function () {
+                                    console.log('Files committed!');
+                                    $('.submit-btn').removeClass('disabled');
+                                    didSubmit = true;
+                                });
                             }
-
-                            setTimeout(function () {
-                                $('.submit-btn').removeClass('disabled');
-                            },3000);
                         });
 
                         $('.reset-btn').on('click', function(e) {
@@ -83,10 +92,9 @@ $(function(){
                 },
                 error: function(error){
                     alert.addClass('alert-danger').removeClass('hidden').html('Something went wrong:'+error.responseText);
+                    hasClicked = false;
                 }
             });
-            hasClicked = true;
-
 
         }
     });

@@ -1,12 +1,14 @@
+'use strict';
+
 //Uses the https://github.com/github-tools/github library under the hood and exposes it as `gh` property
 function GithubAPI(auth) {
-    let repo;
-    let filesToCommit = [];
-    let currentBranch = {};
-    let newCommit = {};
-    
+    var repo = void 0;
+    var filesToCommit = [];
+    var currentBranch = {};
+    var newCommit = {};
+
     //the underlying library for making requests
-    let gh = new GitHub(auth);
+    var gh = new GitHub(auth);
 
     /**
      * Sets the current repository to make push to
@@ -15,9 +17,9 @@ function GithubAPI(auth) {
      * @param {string} repoName Name of the repository
      * @return void
      */
-    this.setRepo = function(userName, repoName) {
+    this.setRepo = function (userName, repoName) {
         repo = gh.getRepo(userName, repoName);
-    }
+    };
 
     /**
      * Sets the current branch to make push to. If the branch doesn't exist yet,
@@ -26,25 +28,26 @@ function GithubAPI(auth) {
      * @param {string} branchName The name of the branch
      * @return {Promise}
      */
-    this.setBranch = function(branchName) {
+    this.setBranch = function (branchName) {
         if (!repo) {
             throw 'Repository is not initialized';
         }
 
-        return repo.listBranches().then((branches) => {
+        return repo.listBranches().then(function (branches) {
 
-            let branchExists = branches.data.find( branch => branch.name === branchName );
+            var branchExists = branches.data.find(function (branch) {
+                return branch.name === branchName;
+            });
 
             if (!branchExists) {
-                return repo.createBranch('master', branchName)
-                    .then(() => {
-                        currentBranch.name = branchName;
-                    });
+                return repo.createBranch('master', branchName).then(function () {
+                    currentBranch.name = branchName;
+                });
             } else {
                 currentBranch.name = branchName;
             }
         });
-    }
+    };
 
     /**
      * Makes the push to the currently set branch
@@ -54,7 +57,7 @@ function GithubAPI(auth) {
      *                            containing data to push
      * @return {Promise}
      */
-    this.pushFiles = function(message, files) {
+    this.pushFiles = function (message, files) {
         if (!repo) {
             throw 'Repository is not initialized';
         }
@@ -62,16 +65,14 @@ function GithubAPI(auth) {
             throw 'Branch is not set';
         }
 
-        return getCurrentCommitSHA()
-            .then(getCurrentTreeSHA)
-            .then( () => createFiles(files) )
-            .then(createTree)
-            .then( () => createCommit(message) )
-            .then(updateHead)
-            .catch((e) => {
-                console.error(e);
-            });
-    }
+        return getCurrentCommitSHA().then(getCurrentTreeSHA).then(function () {
+            return createFiles(files);
+        }).then(createTree).then(function () {
+            return createCommit(message);
+        }).then(updateHead).catch(function (e) {
+            console.error(e);
+        });
+    };
 
     /**
      * Sets the current commit's SHA
@@ -79,10 +80,9 @@ function GithubAPI(auth) {
      * @return {Promise}
      */
     function getCurrentCommitSHA() {
-        return repo.getRef('heads/' + currentBranch.name)
-            .then((ref) => {
-                currentBranch.commitSHA = ref.data.object.sha;
-            });
+        return repo.getRef('heads/' + currentBranch.name).then(function (ref) {
+            currentBranch.commitSHA = ref.data.object.sha;
+        });
     }
 
     /**
@@ -91,10 +91,9 @@ function GithubAPI(auth) {
      * @return {Promise}
      */
     function getCurrentTreeSHA() {
-        return repo.getCommit(currentBranch.commitSHA)
-            .then((commit) => {
-                currentBranch.treeSHA = commit.data.tree.sha;
-            });
+        return repo.getCommit(currentBranch.commitSHA).then(function (commit) {
+            currentBranch.treeSHA = commit.data.tree.sha;
+        });
     }
 
     /**
@@ -105,10 +104,10 @@ function GithubAPI(auth) {
      * @return {Promise}
      */
     function createFiles(filesInfo) {
-        let promises = [];
-        let length = filesInfo.length;
+        var promises = [];
+        var length = filesInfo.length;
 
-        for (let i = 0; i < length; i++) {
+        for (var i = 0; i < length; i++) {
             promises.push(createFile(filesInfo[i]));
         }
 
@@ -123,15 +122,14 @@ function GithubAPI(auth) {
      * @return {Promise}
      */
     function createFile(fileInfo) {
-        return repo.createBlob(fileInfo.content)
-            .then((blob) => {
-                filesToCommit.push({
-                    sha: blob.data.sha,
-                    path: fileInfo.path,
-                    mode: '100644',
-                    type: 'blob'
-                });
+        return repo.createBlob(fileInfo.content).then(function (blob) {
+            filesToCommit.push({
+                sha: blob.data.sha,
+                path: fileInfo.path,
+                mode: '100644',
+                type: 'blob'
             });
+        });
     }
 
     /**
@@ -140,10 +138,9 @@ function GithubAPI(auth) {
      * @return {Promise}
      */
     function createTree() {
-        return repo.createTree(filesToCommit, currentBranch.treeSHA)
-            .then((tree) => {
-                newCommit.treeSHA = tree.data.sha;
-            });
+        return repo.createTree(filesToCommit, currentBranch.treeSHA).then(function (tree) {
+            newCommit.treeSHA = tree.data.sha;
+        });
     }
 
     /**
@@ -153,10 +150,9 @@ function GithubAPI(auth) {
      * @return {Promise}
      */
     function createCommit(message) {
-        return repo.commit(currentBranch.commitSHA, newCommit.treeSHA, message)
-            .then((commit) => {
-                newCommit.sha = commit.data.sha;
-            });
+        return repo.commit(currentBranch.commitSHA, newCommit.treeSHA, message).then(function (commit) {
+            newCommit.sha = commit.data.sha;
+        });
     }
 
     /**
