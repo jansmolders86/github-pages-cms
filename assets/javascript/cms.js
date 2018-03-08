@@ -60,7 +60,7 @@ $(function(){
                                 var branch = $('#branch').val();
                                 var formData = editor.getValue();
                                 var JsonData = JSON.stringify(formData, null, 4);
-
+                                didSubmit = true;
                                 $(this).addClass('disabled');
 
                                 var api = new GithubAPI({ token: token});
@@ -78,7 +78,7 @@ $(function(){
                                 }).then(function () {
                                     console.log('Files committed!');
                                     $('.submit-btn').removeClass('disabled');
-                                    didSubmit = true;
+                                    didSubmit = false;
                                 });
                             }
                         });
