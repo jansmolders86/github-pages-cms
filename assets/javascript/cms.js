@@ -23,7 +23,7 @@ $(function(){
                 },
                 type: 'GET',
                 dataType: 'json',
-                contentType: 'application/json',
+                contentType: 'application/json; charset=utf-8',
                 success: function (data) {
                     var jsonFile = data.content;
                     sha = data.sha;
