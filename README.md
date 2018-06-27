@@ -37,7 +37,7 @@ The CMS Frontend is rendered on the fly and saving the content is immediate, ref
 Cool, Cool, but what about SEO?
 -------------
 
-The complexity of this "system" if simple enough for the crawlers to "see" the content according to:
+The complexity of this "system" is simple enough for the crawlers to "see" the content according to:
 https://searchengineland.com/tested-googlebot-crawls-javascript-heres-learned-220157
 
 TODO's
