@@ -1,3 +1,4 @@
+
 textarea{
     min-height: 200px;
 }
@@ -17,6 +18,14 @@ h2{
 h3,h4,h5{
     text-transform: capitalize;
     font-size: 1em;
+}
+
+label{
+    text-transform: capitalize;
+}
+
+img {
+    width: 100%
 }
 
 #login,
@@ -83,7 +92,7 @@ h3,h4,h5{
     transition: all ease .5s;
 }
 
-#results .btn{
+#results .submit-btn{
     position: fixed;
     right: 100px;
     top: 0;

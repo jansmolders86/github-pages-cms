@@ -7,7 +7,6 @@ $(function(){
         var token = $('#ghToken').val();
         var repo = $('#repo').val();
         var path = $('#path').val();
-        var branch = $('#branch').val();
         var schema = $('#schema').val();
         var alert = $('.alert');
         var resultsContainer = $('#results');
@@ -15,7 +14,6 @@ $(function(){
         var resetButtonText = "Reset Changes";
         var hasClicked = false;
         var didSubmit = false;
-
         var dataStore = {
             data: {},
             schema: {}
@@ -29,8 +27,6 @@ $(function(){
                         xhr.setRequestHeader("Authorization", "user" + btoa("token:" + token));
                     },
                     type: 'GET',
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
                     success: function (data) {
                         dataStore.data = data;
                     }
@@ -53,9 +49,9 @@ $(function(){
                 var jsonFile = projectData.content;
                 sha = projectData.sha;
                 var decodedJson = atob(jsonFile);
+
                 var parsedDecodedJson = JSON.parse(decodedJson);
                 hasClicked = true;
-
 
                 var schemaData = dataStore.schema;
                 var schemaFile = schemaData.content;
@@ -87,7 +83,7 @@ $(function(){
                             var path = $('#path').val();
                             var branch = $('#branch').val();
                             var formData = editor.getValue();
-                            var JsonData = JSON.stringify(formData, null, 4);
+                            var JsonData = JSON.stringify(formData);
                             didSubmit = true;
                             $(this).addClass('disabled');
 
@@ -104,7 +100,7 @@ $(function(){
                                     ]
                                 );
                             }).then(function () {
-                                console.log('Files committed!');
+                                console.log('Files committed!', JsonData);
                                 $('.submit-btn').removeClass('disabled');
                                 didSubmit = false;
                             });
