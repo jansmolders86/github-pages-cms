@@ -13,7 +13,7 @@ Every once in a while I get asked to create a small simple low-budget website. T
 How does this work?
 -------------
 
-The content is exported as a base64 encoded .bin file but is in fact, a simple JSON file as seen in the "(Example)[https://github.com/jansmolders86/gh-cms/tree/master/example]" folder. 
+The content is exported as a base64 encoded .bin file but is in fact, a simple JSON file as seen in the "https://github.com/jansmolders86/gh-cms/tree/master/example)[Example]" folder. 
 
 On the client side you can retrieve the data and assign it to elements using, for example; data attributes. 
 This is just an example, you can use whatever you like. 
@@ -29,7 +29,7 @@ This is just an example, you can use whatever you like.
 ```
 
 The "CMS" grabs the JSON, renders the contents using jdorn's, https://github.com/jdorn/json-editor
-You can use the Schema JSON file to control the way the CMS is rendering the fields. An example of both the content as well as the corresponding schema, can be found in the '(Example)[https://github.com/jansmolders86/gh-cms/tree/master/example]' folder.
+You can use the Schema JSON file to control the way the CMS is rendering the fields. An example of both the content as well as the corresponding schema, can be found in the '(https://github.com/jansmolders86/gh-cms/tree/master/example)[Example]' folder.
 
 __The CMS Login requires you to use a github token instead of a password to add some security.__
 
