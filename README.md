@@ -13,7 +13,7 @@ Every once in a while I get asked to create a small simple low-budget website. T
 How does this work?
 -------------
 
-The content is provide using a simple Schema v4 JSON.
+The content is provide using a simple Schema v4 JSON. Which in turn will be exported as a base64 encoded .bin file. 
 
 On the client side you can retrieve the data and assign it to elements using data attributes for example. 
 This is just an example, you can use whatever you like. 
@@ -22,15 +22,16 @@ This is just an example, you can use whatever you like.
     var url = './assets/json/content.json';
     var $body = $("body");
     $.getJSON(url, function(data) {
-      var homepage = data.en.homepage;
+      var actual = JSON.parse(decodeURIComponent(escape(window.atob(data))));  //!important: Decode the base64 back to a legible JSON 
+      var homepage = actual.en.homepage;
       $body.find("[data-content='header-title']").html(homepage.header.content.title);
     });
 ```
 
 The "CMS" grabs the JSON, renders the contents using jdorn's, https://github.com/jdorn/json-editor
+You can use the Schema you add to control the way the CMS is rendering the fields. An example of both the content as well as the corresponding schema, can be found in the ''example' folder.
 
 __The CMS Login requires you to use a github token instead of a password to add some security.__
-
 
 The CMS Frontend is rendered on the fly and saving the content is immediate, refresh the page requires a login again. 
 
@@ -42,7 +43,6 @@ https://searchengineland.com/tested-googlebot-crawls-javascript-heres-learned-22
 
 TODO's
 -------------
-* Add WYSIWYG editor to textarea's
 * Show errors on frontend
 * Add security and store token securly 
 * Expand functionality (upload images, versioning, etc)
