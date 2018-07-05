@@ -37,8 +37,6 @@ $(function(){
                         xhr.setRequestHeader("Authorization", "user" + btoa("token:" + token));
                     },
                     type: 'GET',
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
                     success: function (schema) {
                         dataStore.schema = schema;
                     }
@@ -47,25 +45,23 @@ $(function(){
             ).then(function() {
                 var projectData = dataStore.data;
                 var jsonFile = projectData.content;
-                sha = projectData.sha;
-                var decodedJson = atob(jsonFile);
-
-                var parsedDecodedJson = JSON.parse(decodedJson);
+				var schemaData = dataStore.schema;
                 hasClicked = true;
-
-                var schemaData = dataStore.schema;
                 var schemaFile = schemaData.content;
-                var decodedSchemaJson = atob(schemaFile);
-                var parsedDecodedSchemaJson = JSON.parse(decodedSchemaJson);
+				var decodedJson = decodeURIComponent(escape(window.atob(jsonFile)));
+				var parsedDecodedJson = JSON.parse(decodeURIComponent(escape(window.atob(decodedJson))));
+				var decodedSchemaJson = JSON.parse(atob(schemaFile));
 
+				hasClicked = true;
                 if(parsedDecodedJson){
                     $('#login').hide();
                     alert.addClass('hidden');
 
+                    JSONEditor.plugins.sceditor.enable = true;
                     var editor = new JSONEditor(document.getElementById('results'),{
                         ajax: true,
                         disable_edit_json: true,
-                        schema: parsedDecodedSchemaJson,
+                        schema: decodedSchemaJson,
                         theme: 'bootstrap3',
                         startval: parsedDecodedJson,
                         iconlib: "bootstrap3"
@@ -83,7 +79,8 @@ $(function(){
                             var path = $('#path').val();
                             var branch = $('#branch').val();
                             var formData = editor.getValue();
-                            var JsonData = JSON.stringify(formData);
+                            var encodedJsonData = btoa(unescape(encodeURIComponent(JSON.stringify(formData))));
+
                             didSubmit = true;
                             $(this).addClass('disabled');
 
@@ -94,13 +91,13 @@ $(function(){
                                     'CMS Update',
                                     [
                                         {
-                                            content: JsonData,
+                                            content: encodedJsonData,
                                             path: path
                                         }
                                     ]
                                 );
                             }).then(function () {
-                                console.log('Files committed!', JsonData);
+                                console.log('Files committed!');
                                 $('.submit-btn').removeClass('disabled');
                                 didSubmit = false;
                             });
@@ -111,7 +108,9 @@ $(function(){
                         e.preventDefault();
                         editor.setValue(parsedDecodedJson);
                     });
-                }
+                } else {
+					console.log('Some error with file.');
+				}
             });
         }
     });
