@@ -29,7 +29,11 @@ This is just an example, you can use whatever you like.
 ```
 
 The "CMS" grabs the JSON, renders the contents using jdorn's, https://github.com/jdorn/json-editor
-You can use the Schema JSON file to control the way the CMS is rendering the fields. An example of both the content as well as the corresponding schema, can be found in the [Example](https://github.com/jansmolders86/gh-cms/tree/master/example) folder.
+
+Controlling the way fields are rendered
+-------------
+You can use a Schema JSON file to control the way the CMS is rendering the fields. 
+An example of both the content as well as the corresponding schema, can be found in the [Example](https://github.com/jansmolders86/gh-cms/tree/master/example) folder.
 
 __The CMS Login requires you to use a github token instead of a password to add some security.__
 
