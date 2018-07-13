@@ -100,6 +100,8 @@ $(function(){
                                 console.log('Files committed!');
                                 $('.submit-btn').removeClass('disabled');
                                 didSubmit = false;
+                            }).catch(function(err){
+                                alert.removeClass('hidden').html('Something went wrong:', err);
                             });
                         }
                     });
@@ -109,7 +111,7 @@ $(function(){
                         editor.setValue(parsedDecodedJson);
                     });
                 } else {
-					console.log('Some error with file.');
+                    alert.removeClass('hidden').html('Something is wrong with the JSON. Make sure it is valid');
 				}
             });
         }
