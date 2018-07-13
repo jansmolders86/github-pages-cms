@@ -43,6 +43,4 @@ https://searchengineland.com/tested-googlebot-crawls-javascript-heres-learned-22
 
 TODO's
 -------------
-* Show errors on frontend
-* Add security and store token securly 
 * Expand functionality (upload images, versioning, etc)
