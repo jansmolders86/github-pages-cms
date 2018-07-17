@@ -27,7 +27,7 @@ This is just an example, you can use whatever you like.
       $body.find("[data-content='header-title']").html(homepage.header.content.header);
     });
 ```
-[Click here to see a demo implementation](https://github.com/jansmolders86/gh-cms-starter-template/assets/javascript/dev/locale.js)
+[Click here to see a demo implementation](https://github.com/jansmolders86/gh-cms-starter-template/blob/master/assets/javascript/dev/locale.js)
 
 The "CMS" grabs the JSON, renders the contents using jdorn's, https://github.com/jdorn/json-editor
 
