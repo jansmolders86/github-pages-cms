@@ -27,6 +27,7 @@ This is just an example, you can use whatever you like.
       $body.find("[data-content='header-title']").html(homepage.header.content.title);
     });
 ```
+(https://github.com/jansmolders86/gh-cms-starter-template/assets/javascript/dev/locale.js)[Click here to see a demo implementation]
 
 The "CMS" grabs the JSON, renders the contents using jdorn's, https://github.com/jdorn/json-editor
 
@@ -44,6 +45,12 @@ Cool, Cool, but what about SEO?
 
 The complexity of this "system" is simple enough for the crawlers to "see" the content according to:
 https://searchengineland.com/tested-googlebot-crawls-javascript-heres-learned-220157
+
+Fine, I'm curious, let's see this in action!
+------------
+
+Demo URL: https://jansmolders86.github.io/gh-cms-starter-template/  (Using the same example data as seen in this repo)
+Demo Github: https://github.com/jansmolders86/gh-cms-starter-template 
 
 TODO's
 -------------
