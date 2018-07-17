@@ -24,7 +24,7 @@ This is just an example, you can use whatever you like.
     $.getJSON(url, function(data) {
       var actual = JSON.parse(decodeURIComponent(escape(window.atob(data))));  //!important: Decode the base64 back to a legible JSON 
       var homepage = actual.en.homepage;
-      $body.find("[data-content='header-title']").html(homepage.header.content.title);
+      $body.find("[data-content='header-title']").html(homepage.header.content.header);
     });
 ```
 [Click here to see a demo implementation](https://github.com/jansmolders86/gh-cms-starter-template/assets/javascript/dev/locale.js)
