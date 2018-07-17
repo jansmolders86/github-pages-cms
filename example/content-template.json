@@ -5,15 +5,15 @@
         "header": {
           "content": {
             "header": "Header Title",
-            "description": "This will be rendered in a textarea due to the key"
+            "description": "This will be rendered in a wysiwyg field due to the key and schema"
           }
         },
         "content": {
           "section": {
             "header": "This is a section title",
-            "images": {
-              "src": "assets/images/1.png",
-              "alt": "Toshiba"
+            "image": {
+              "src": "https://dummyimage.com/600x400/000/fff.png&text=Example+Image",
+              "alt": "example"
             }
           }
         },
