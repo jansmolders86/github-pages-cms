@@ -24,9 +24,10 @@ This is just an example, you can use whatever you like.
     $.getJSON(url, function(data) {
       var actual = JSON.parse(decodeURIComponent(escape(window.atob(data))));  //!important: Decode the base64 back to a legible JSON 
       var homepage = actual.en.homepage;
-      $body.find("[data-content='header-title']").html(homepage.header.content.title);
+      $body.find("[data-content='header-title']").html(homepage.header.content.header);
     });
 ```
+[Click here to see a demo implementation](https://github.com/jansmolders86/gh-cms-starter-template/blob/master/assets/javascript/dev/locale.js)
 
 The "CMS" grabs the JSON, renders the contents using jdorn's, https://github.com/jdorn/json-editor
 
@@ -44,6 +45,12 @@ Cool, Cool, but what about SEO?
 
 The complexity of this "system" is simple enough for the crawlers to "see" the content according to:
 https://searchengineland.com/tested-googlebot-crawls-javascript-heres-learned-220157
+
+Fine, I'm curious, let's see this in action!
+------------
+
+Demo URL: https://jansmolders86.github.io/gh-cms-starter-template/  (Using the same example data as seen in this repo)
+Demo Github: https://github.com/jansmolders86/gh-cms-starter-template 
 
 TODO's
 -------------
