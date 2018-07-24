@@ -53,6 +53,26 @@ img {
     overflow: hidden;
 }
 
+.alert{ 
+    margin: 40px auto; 
+    height: 75px;
+    width: 100%;
+    display: block;
+}
+
+.alert.error{
+    border: 1px solid #db2828;
+    background-color: #ffe5e5;
+    color: #db2828;
+}
+
+
+.alert.success{
+    border: 1px solid #75d48b;
+    background-color: #eaffef;
+    color: #75d48b;
+}
+
 .lang-content-wrapper,
 .page-wrapper{
     height: 100px;

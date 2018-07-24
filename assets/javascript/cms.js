@@ -2,7 +2,6 @@
 $(function(){
     $('#ghsubmitbtn').on('click', function(e){
         e.preventDefault();
-        var sha;
         var owner = $('#owner').val();
         var token = $('#ghToken').val();
         var repo = $('#repo').val();
@@ -29,7 +28,10 @@ $(function(){
                     type: 'GET',
                     success: function (data) {
                         dataStore.data = data;
-                    }
+                    }, 
+                    error: function (err) {
+                        alert.addClass('error').removeClass('hidden').html('Something went wrong:', err);
+                    } 
                 }),
                 $.ajax({
                     url: "https://api.github.com/repos/" + owner + "/" + repo + "/contents/" + schema,
@@ -39,6 +41,9 @@ $(function(){
                     type: 'GET',
                     success: function (schema) {
                         dataStore.schema = schema;
+                    }, 
+                    error: function (err) {
+                        alert.addClass('error').removeClass('hidden').html('Something went wrong:', err);
                     }
                 })
 
@@ -55,7 +60,7 @@ $(function(){
 				hasClicked = true;
                 if(parsedDecodedJson){
                     $('#login').hide();
-                    alert.addClass('hidden');
+                    alert.addClass('hidden').removeClass('alert');
 
                     JSONEditor.plugins.sceditor.enable = true;
                     var editor = new JSONEditor(document.getElementById('results'),{
@@ -98,10 +103,14 @@ $(function(){
                                 );
                             }).then(function () {
                                 console.log('Files committed!');
+                                alert.addClass('success').removeClass('hidden').html('Files succesfully submitted to Github.');
                                 $('.submit-btn').removeClass('disabled');
+                                setTimeout(function(){
+                                    alert.addClass('hidden').removeClass('success');
+                                },2000);
                                 didSubmit = false;
                             }).catch(function(err){
-                                alert.removeClass('hidden').html('Something went wrong:', err);
+                                alert.addClass('error').removeClass('hidden').html('Something went wrong:', err);
                             });
                         }
                     });
@@ -111,7 +120,7 @@ $(function(){
                         editor.setValue(parsedDecodedJson);
                     });
                 } else {
-                    alert.removeClass('hidden').html('Something is wrong with the JSON. Make sure it is valid');
+                    alert.addClass('error').removeClass('hidden').html('Something is wrong with the JSON. Make sure it is valid');
 				}
             });
         }
