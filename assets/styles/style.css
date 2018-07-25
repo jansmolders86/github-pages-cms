@@ -54,10 +54,13 @@ img {
 }
 
 .alert{ 
-    margin: 40px auto; 
     height: 75px;
     width: 100%;
     display: block;
+    position: fixed;
+    left: auto;
+    right: auto;
+    top: 80px
 }
 
 .alert.error{

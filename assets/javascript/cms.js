@@ -107,7 +107,7 @@ $(function(){
                                 $('.submit-btn').removeClass('disabled');
                                 setTimeout(function(){
                                     alert.addClass('hidden').removeClass('success');
-                                },2000);
+                                },4000);
                                 didSubmit = false;
                             }).catch(function(err){
                                 alert.addClass('error').removeClass('hidden').html('Something went wrong:', err);
