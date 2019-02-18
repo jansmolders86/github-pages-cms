@@ -52,6 +52,26 @@ Fine, I'm curious, let's see this in action!
 Demo URL: https://jansmolders86.github.io/gh-cms-starter-template/  (Using the same example data as seen in this repo)
 Demo Github: https://github.com/jansmolders86/gh-cms-starter-template 
 
+Getting Started
+------------
+
+So it works like this:
+
+1. You have a client, which is just a static website.  Coded they way you want and hosted as a github pages page. Create a full access token in the page's settings on Github.
+2. You have a 2 JSON files.
+
+One for the CMS layout based on https://github.com/jdorn/json-editor exampled here: https://github.com/jansmolders86/gh-cms-starter-template/blob/master/assets/json/schema.json
+
+And one JSON matching the Schema with the actual content:
+https://github.com/jansmolders86/gh-cms-starter-template/blob/master/assets/json/content.json
+
+1. convert the initial content.json to a base64 Blob and save that as a bin file. you can do that online using a tool like this (this is only the first time) https://www.base64encode.org/
+2. Hook a a "middleware" in a way you're most comfortable. basically you just want to do an AJAX call, get the Blob, convert it back to a JSON and substitute or fill html with said content like in this example:
+   https://github.com/jansmolders86/gh-cms-starter-template/blob/master/assets/javascript/dev/locale.js
+3. run the CMS on a Github pages of your choosing. Once it's up you'll get a login screen.
+4. log in using the github email/token and provide the staic path to the blob and the proper branch.
+   Once you log in, the CMS will use the Schema and the blob to generate the appropriate fields.
+
 TODO's
 -------------
 * Expand functionality (upload images, versioning, etc)
