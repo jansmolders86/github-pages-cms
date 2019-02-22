@@ -5,6 +5,10 @@ __A Simple Content Management System on Github Pages, for Github Pages.__
 
 ![CMS](https://raw.githubusercontent.com/jansmolders86/gh-cms/master/example/cms.gif)
 
+Demo
+===================
+[Demo](https://jansmolders86.github.io/github-pages-cms/)
+
 What is this?
 =========================
 
