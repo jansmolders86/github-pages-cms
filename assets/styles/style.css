@@ -53,14 +53,22 @@ img {
     overflow: hidden;
 }
 
-.alert{ 
-    height: 75px;
-    width: 100%;
+.alert{
+    height: 100px;
+    width: 70%;
     display: block;
     position: fixed;
-    left: auto;
+    left: 15%;
     right: auto;
-    top: 80px
+    margin: 0 auto;
+    top: 0;
+    z-index: 9;
+    line-height: 100px;
+    padding: 0 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: arial;
+    font-size: 16px;
 }
 
 .alert.error{
