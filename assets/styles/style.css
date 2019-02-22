@@ -37,6 +37,16 @@ img {
     border-radius: 5px;
 }
 
+#login{
+    max-width: 550px;
+    margin: 50px auto;
+}
+
+#results{
+    max-width: 85%;
+    margin: 50px auto;
+}
+
 .lang-container{
     border: 1px solid #e0e0e1;
     padding: 20px;
