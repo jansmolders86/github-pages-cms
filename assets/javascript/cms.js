@@ -28,10 +28,12 @@ $(function(){
                     type: 'GET',
                     success: function (data) {
                         dataStore.data = data;
-                    }, 
+						console.log('Got some data!', data);
+                    },
                     error: function (err) {
                         alert.addClass('error').removeClass('hidden').html('Something went wrong:', err);
-                    } 
+						console.log('can not connect to Github for data', err);
+                    }
                 }),
                 $.ajax({
                     url: "https://api.github.com/repos/" + owner + "/" + repo + "/contents/" + schema,
@@ -41,9 +43,11 @@ $(function(){
                     type: 'GET',
                     success: function (schema) {
                         dataStore.schema = schema;
-                    }, 
+						console.log('Got some schemas!', schema);
+                    },
                     error: function (err) {
                         alert.addClass('error').removeClass('hidden').html('Something went wrong:', err);
+						console.log('can not connect to Github for schema', err);
                     }
                 })
 
@@ -62,14 +66,19 @@ $(function(){
                     $('#login').hide();
                     alert.addClass('hidden').removeClass('alert');
 
-                    JSONEditor.plugins.sceditor.enable = true;
+                    var plugins = JSONEditor.plugins || {};
+                    var sceditor = plugins.sceditor || {};
+                    if (plugins && sceditor) {
+                        sceditor.enable = true;
+                    }
+
                     var editor = new JSONEditor(document.getElementById('results'),{
                         ajax: true,
                         disable_edit_json: true,
                         schema: decodedSchemaJson,
-                        theme: 'bootstrap3',
+                        theme: 'bootstrap4',
                         startval: parsedDecodedJson,
-                        iconlib: "bootstrap3"
+                        iconlib: "bootstrap4"
                     });
 
                     resultsContainer.append('<button class="submit-btn btn btn-primary">'+submitButtonText+'</button>');
@@ -111,6 +120,7 @@ $(function(){
                                 didSubmit = false;
                             }).catch(function(err){
                                 alert.addClass('error').removeClass('hidden').html('Something went wrong:', err);
+								console.log('Commit error!', err);
                             });
                         }
                     });
@@ -121,6 +131,7 @@ $(function(){
                     });
                 } else {
                     alert.addClass('error').removeClass('hidden').html('Something is wrong with the JSON. Make sure it is valid');
+					console.log('Bad JSON!');
 				}
             });
         }
